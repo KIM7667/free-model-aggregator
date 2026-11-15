@@ -464,15 +464,21 @@ class Catalog:
         return cands[0] if cands else None
 
     def failover_order(self, cands, primary):
-        """Candidates after the primary: other providers first (a refusal may
-        mean the first provider's budget is spent), then other models of the
-        same provider, each in rating order."""
-        rest = [c for c in cands
+        """Candidates after the primary, in rating order.
+
+        A refusal is usually the provider's scheduled failure, not a spent
+        budget, so the next-best model overall is the right retry even when
+        it lives on the same provider: a same-provider retry succeeds
+        whenever the failure was scheduled, and costs one wasted call when
+        the budget really is spent. Skipping to another provider first
+        would serve a lower-rated model for no reason (trial 2 r02 lost
+        26 milli this way: gemini-3.8-flash refused once, and the old
+        order fell back to zai's glm-4.6v-flash at 1432 instead of
+        gemini's own gemma-4-31b at 1452).
+        """
+        return [c for c in cands
                 if not (c["provider"]["id"] == primary["provider"]["id"]
                         and c["model"]["id"] == primary["model"]["id"])]
-        other_providers = [c for c in rest if c["provider"]["id"] != primary["provider"]["id"]]
-        same_provider = [c for c in rest if c["provider"]["id"] == primary["provider"]["id"]]
-        return other_providers + same_provider
 
 
 # ---------------------------------------------------------------------------
