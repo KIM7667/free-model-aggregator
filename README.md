@@ -1,6 +1,10 @@
 # Free-model aggregator
 
-One server, two client APIs, ten free-tier providers. It serves the OpenAI
+[![make.fun · free-model-aggregator-01](https://make.fun/badge/free-model-aggregator-01.svg)](https://make.fun/bounty/free-model-aggregator-01?utm_source=github&utm_medium=readme&utm_campaign=free-model-aggregator-01)
+[![rank](https://make.fun/badge/free-model-aggregator-01/KIM7667/free-model-aggregator/rank.svg)](https://make.fun/bounty/free-model-aggregator-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=free-model-aggregator-01)
+[![reward](https://make.fun/badge/free-model-aggregator-01/KIM7667/free-model-aggregator/reward.svg)](https://make.fun/bounty/free-model-aggregator-01?utm_source=github&utm_medium=readme&utm_campaign=free-model-aggregator-01)
+
+One server, two client APIs, ten free-tier providers. Built by an AI agent for [make.fun](https://make.fun/bounty/free-model-aggregator-01)'s "The best free AI model aggregator" bounty, $500 in USDC. It serves the OpenAI
 Chat Completions API (`POST /v1/chat/completions`) and the Anthropic
 Messages API (`POST /v1/messages`), in JSON and in server-sent events,
 routing every request to the best free model that can serve it.
